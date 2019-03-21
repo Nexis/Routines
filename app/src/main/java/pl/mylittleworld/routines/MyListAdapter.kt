@@ -1,4 +1,4 @@
-package pl.mylittleworld.rutines
+package pl.mylittleworld.routines
 
 import android.content.Context
 import android.util.Log
@@ -8,7 +8,8 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
 import android.widget.TextView
-import pl.mylittleworld.rutines.database.ThingToDo
+import pl.mylittleworld.routines.database.ThingToDo
+import pl.mylittleworld.rutines.R
 
 
 class MyListAdapter(context: Context, objects: ArrayList<ThingToDo>) : ArrayAdapter<ThingToDo>(context,0,objects) {
@@ -29,7 +30,7 @@ class MyListAdapter(context: Context, objects: ArrayList<ThingToDo>) : ArrayAdap
 
         convertView.setOnTouchListener{ v, event ->
             if(event.action== MotionEvent.ACTION_MOVE){
-                Log.d()
+              //  Log.d()
             }
             true
         }

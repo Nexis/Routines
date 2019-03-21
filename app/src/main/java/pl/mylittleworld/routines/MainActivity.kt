@@ -1,4 +1,4 @@
-package pl.mylittleworld.rutines
+package pl.mylittleworld.routines
 
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
@@ -8,8 +8,9 @@ import butterknife.BindView
 import butterknife.ButterKnife
 import butterknife.OnClick
 
-import pl.mylittleworld.rutines.cache.Cache
-import pl.mylittleworld.rutines.database.ThingToDo
+import pl.mylittleworld.routines.cache.Cache
+import pl.mylittleworld.routines.database.ThingToDo
+import pl.mylittleworld.rutines.R
 
 class MainActivity : FragmentActivity() {
 

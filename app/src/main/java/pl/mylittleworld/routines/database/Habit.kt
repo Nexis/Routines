@@ -1,4 +1,4 @@
-package pl.mylittleworld.rutines.database
+package pl.mylittleworld.routines.database
 
 import android.arch.persistence.room.PrimaryKey
 import java.time.DayOfWeek
