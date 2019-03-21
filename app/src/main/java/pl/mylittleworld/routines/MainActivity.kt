@@ -2,6 +2,8 @@ package pl.mylittleworld.routines
 
 import android.os.Bundle
 import android.support.v4.app.FragmentActivity
+import android.view.GestureDetector
+import android.view.MotionEvent
 import android.widget.Button
 import android.widget.ListView
 import butterknife.BindView
@@ -12,12 +14,33 @@ import pl.mylittleworld.routines.cache.Cache
 import pl.mylittleworld.routines.database.ThingToDo
 import pl.mylittleworld.rutines.R
 
-class MainActivity : FragmentActivity() {
+class MainActivity : FragmentActivity(), Control {
+    override fun userSwipedRightAtTask(thingToDo: ThingToDo?) {
+        if(thingToDo==null) return
+        if(visibleListStatus==Status.TO_DO){
+             cache?.assignTaskAsDone(thingToDo)
+        }
+        else{
+            cache?.postponedToToDo(thingToDo)
+        }
+    }
+
+    override fun userSwipedLeftAtTask(thingToDo: ThingToDo?) {
+        if(thingToDo==null) return
+        if(visibleListStatus==Status.TO_DO){
+             cache?.postponeTask(thingToDo)
+        }
+        else{
+            cache?.DoneToToDo(thingToDo)
+        }
+    }
 
     lateinit var postponedListAdapter: MyListAdapter
     lateinit var toDoListAdapter: MyListAdapter
     lateinit var doneListAdapter: MyListAdapter
     val cache: Cache? = null
+
+    var visibleListStatus: Status=Status.TO_DO
 
     @BindView(R.id.postponed) lateinit var postponedButton: Button
     @BindView(R.id.to_do) lateinit var toDoButton: Button
@@ -44,9 +67,9 @@ class MainActivity : FragmentActivity() {
 
 
 
-        postponedListAdapter = MyListAdapter(this, postponedToDoList)
-        toDoListAdapter = MyListAdapter(this, thingToDoList)
-        doneListAdapter = MyListAdapter(this, doneToDoList)
+        postponedListAdapter = MyListAdapter(this, postponedToDoList,this)
+        toDoListAdapter = MyListAdapter(this, thingToDoList,this)
+        doneListAdapter = MyListAdapter(this, doneToDoList,this)
 
 
         /* End*/
