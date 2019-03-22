@@ -1,6 +1,8 @@
 package pl.mylittleworld.routines
 
 import android.content.Context
+import android.support.animation.DynamicAnimation
+import android.support.animation.FlingAnimation
 import android.util.Log
 import android.view.*
 import android.widget.ArrayAdapter
@@ -28,7 +30,7 @@ class MyListAdapter(context: Context, objects: ArrayList<ThingToDo>,val control:
 
         name.text = thingToDo?.name
 
-        val gestureDetector: GestureDetector= GestureDetector(context, SwipeHandler(thingToDo))
+        val gestureDetector: GestureDetector= GestureDetector(context, SwipeHandler(thingToDo,convertView))
         convertView.setOnTouchListener(View.OnTouchListener {v, event ->
         gestureDetector.onTouchEvent(event)
         })
@@ -37,7 +39,15 @@ class MyListAdapter(context: Context, objects: ArrayList<ThingToDo>,val control:
     }
 
 
-    inner class SwipeHandler(val thingToDo: ThingToDo) : GestureDetector.OnGestureListener{
+    inner class SwipeHandler(val thingToDo: ThingToDo,val view: View) : GestureDetector.OnGestureListener{
+
+        val fling = FlingAnimation(view, DynamicAnimation.SCROLL_X).apply {
+            setStartVelocity(0f)
+            setMinValue(0f)
+            setMaxValue(2000f)
+            friction = 1.1f
+            start()
+        }
         override fun onShowPress(e: MotionEvent?) {
       //do nothing
         }
@@ -50,7 +60,8 @@ class MyListAdapter(context: Context, objects: ArrayList<ThingToDo>,val control:
 
         override fun onDown(e: MotionEvent?): Boolean {
             //do nothing
-            Log.d("swipe","onDown")
+            Log.d("swipe","onFDown")
+            fling.start()
             return true
         }
 
@@ -76,8 +87,10 @@ class MyListAdapter(context: Context, objects: ArrayList<ThingToDo>,val control:
                 val distanceX = e2.getX() - e1.getX();
                 val distanceY = e2.getY() - e1.getY();
                 if (Math.abs(distanceX) > Math.abs(distanceY) && Math.abs(distanceX) > SWIPE_DISTANCE_THRESHOLD && Math.abs(velocityX) > SWIPE_VELOCITY_THRESHOLD) {
+
                     if (distanceX > 0) {
                         control.userSwipedRightAtTask(thingToDo)
+
                     } else {
                         control.userSwipedLeftAtTask(thingToDo)
                     }
