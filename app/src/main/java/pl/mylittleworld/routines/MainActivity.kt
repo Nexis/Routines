@@ -15,8 +15,7 @@ import pl.mylittleworld.routines.database.ThingToDo
 import pl.mylittleworld.rutines.R
 
 class MainActivity : FragmentActivity(), Control {
-    override fun userSwipedRightAtTask(thingToDo: ThingToDo?) {
-        if(thingToDo==null) return
+    override fun userSwipedRightAtTask(thingToDo: ThingToDo) {
         if(visibleListStatus==Status.TO_DO){
              cache?.assignTaskAsDone(thingToDo)
         }
@@ -25,8 +24,7 @@ class MainActivity : FragmentActivity(), Control {
         }
     }
 
-    override fun userSwipedLeftAtTask(thingToDo: ThingToDo?) {
-        if(thingToDo==null) return
+    override fun userSwipedLeftAtTask(thingToDo: ThingToDo) {
         if(visibleListStatus==Status.TO_DO){
              cache?.postponeTask(thingToDo)
         }
@@ -38,7 +36,7 @@ class MainActivity : FragmentActivity(), Control {
     lateinit var postponedListAdapter: MyListAdapter
     lateinit var toDoListAdapter: MyListAdapter
     lateinit var doneListAdapter: MyListAdapter
-    val cache: Cache? = null
+    var cache: Cache? = null
 
     var visibleListStatus: Status=Status.TO_DO
 
@@ -65,7 +63,7 @@ class MainActivity : FragmentActivity(), Control {
         val doneToDoList: ArrayList<ThingToDo> = ArrayList()
         doneToDoList.add(ThingToDo(1, Status.TO_DO, "DONE"))
 
-
+        cache= Cache(postponedToDoList,thingToDoList,doneToDoList)
 
         postponedListAdapter = MyListAdapter(this, postponedToDoList,this)
         toDoListAdapter = MyListAdapter(this, thingToDoList,this)
@@ -81,16 +79,19 @@ class MainActivity : FragmentActivity(), Control {
     @OnClick(R.id.postponed)
     fun showPostponedTasks(): Unit {
         listView.adapter =postponedListAdapter
+        visibleListStatus=Status.NOT_TO_DO
     }
 
     @OnClick(R.id.to_do)
     fun showToDoTasks(): Unit {
         listView.adapter =toDoListAdapter
+        visibleListStatus=Status.TO_DO
     }
 
     @OnClick(R.id.done)
     fun showDoneTasks(): Unit {
         listView.adapter =doneListAdapter
+        visibleListStatus=Status.DONE
     }
 
 

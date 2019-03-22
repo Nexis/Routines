@@ -12,7 +12,6 @@ import pl.mylittleworld.rutines.R
 
 class MyListAdapter(context: Context, objects: ArrayList<ThingToDo>,val control: Control) : ArrayAdapter<ThingToDo>(context,0,objects) {
 
-    val swipeHandler: SwipeHandler=SwipeHandler()
     override fun getView(position: Int, convertViewP: View?, parent: ViewGroup): View {
         var convertView=convertViewP
         val thingToDo: ThingToDo? = getItem(position)
@@ -23,13 +22,14 @@ class MyListAdapter(context: Context, objects: ArrayList<ThingToDo>,val control:
             if(convertView==null)
                 throw  RuntimeException()
         }
+        if(thingToDo==null) return convertView
+
         val name = convertView.findViewById<TextView>(R.id.name)
 
         name.text = thingToDo?.name
 
-        val gestureDetector: GestureDetector= GestureDetector(context,  swipeHandler)
+        val gestureDetector: GestureDetector= GestureDetector(context, SwipeHandler(thingToDo))
         convertView.setOnTouchListener(View.OnTouchListener {v, event ->
-          swipeHandler.thingToDo=thingToDo
         gestureDetector.onTouchEvent(event)
         })
 
@@ -37,35 +37,40 @@ class MyListAdapter(context: Context, objects: ArrayList<ThingToDo>,val control:
     }
 
 
-    inner class SwipeHandler : GestureDetector.OnGestureListener {
-       var thingToDo: ThingToDo?=null
-
+    inner class SwipeHandler(val thingToDo: ThingToDo) : GestureDetector.OnGestureListener{
         override fun onShowPress(e: MotionEvent?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+      //do nothing
         }
 
         override fun onSingleTapUp(e: MotionEvent?): Boolean {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            //do nothing
+            Log.d("swipe","onsingletapup")
+            return true
         }
 
         override fun onDown(e: MotionEvent?): Boolean {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            //do nothing
+            Log.d("swipe","onDown")
+            return true
         }
 
         override fun onScroll(e1: MotionEvent?, e2: MotionEvent?, distanceX: Float, distanceY: Float): Boolean {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            //do nothing
+            Log.d("swipe","onScroll")
+            return true
+
         }
 
         override fun onLongPress(e: MotionEvent?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+            //do nothing
+            Log.d("swipe","longPress")
+
         }
-        //synchronized
-      //  {
+
             override fun onFling(e1: MotionEvent, e2: MotionEvent, velocityX: Float, velocityY: Float): Boolean {
 
-
-
-                val SWIPE_DISTANCE_THRESHOLD = 100
+                Log.d("swipe","onFling")
+                val SWIPE_DISTANCE_THRESHOLD = 10
                 val SWIPE_VELOCITY_THRESHOLD = 100
 
                 val distanceX = e2.getX() - e1.getX();
@@ -83,7 +88,6 @@ class MyListAdapter(context: Context, objects: ArrayList<ThingToDo>,val control:
             }
         }
 
-  //  }
 
     }
 
