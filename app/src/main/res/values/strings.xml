@@ -3,4 +3,6 @@
     <string name="postponed">POSTPONED</string>
     <string name="done">DONE</string>
     <string name="to_do">TO_DO</string>
+    <string name="add_to_do_for_today">Add \'to_do\' for today</string>
+    <string name="add_routine">Add routine</string>
 </resources>

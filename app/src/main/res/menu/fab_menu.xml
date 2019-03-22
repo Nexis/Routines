@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+<item
+    android:id="@+id/routine"
+    android:title="@string/add_routine" />
+
+<item
+    android:id="@+id/to_do"
+    android:title="@string/add_to_do_for_today" />
+</menu>

@@ -1,41 +1,65 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="pl.mylittleworld.routines.MainActivity"
-    android:orientation="vertical">
+    xmlns:custom="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    tools:context="pl.mylittleworld.routines.MainActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
-        <Button
-            android:id="@+id/postponed"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            style="@style/Widget.AppCompat.Button.Borderless.Colored"
-            android:text="@string/postponed"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/to_do"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:text="@string/to_do"
-            android:layout_height="wrap_content" />
-        <Button
-            android:id="@+id/done"
-            android:layout_width="0dp"
-            android:layout_weight="1"
-            style="@style/Widget.AppCompat.Button.Borderless"
-            android:text="@string/done"
-            android:layout_height="wrap_content" />
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/postponed"
+                style="@style/Widget.AppCompat.Button.Borderless.Colored"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/postponed" />
+
+            <Button
+                android:id="@+id/to_do"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/to_do" />
+
+            <Button
+                android:id="@+id/done"
+                style="@style/Widget.AppCompat.Button.Borderless"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:text="@string/done" />
+
+        </LinearLayout>
+
+        <ListView
+            android:id="@+id/list_view"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+
     </LinearLayout>
-    <ListView
-        android:id="@+id/list_view"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
 
+    <com.github.ag.floatingactionmenu.OptionsFabLayout
+        android:id="@+id/fab_l"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentEnd="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="16dp"
+        android:color="@color/colorAccent"
+        custom:options_color="@color/colorPrimary"
+        custom:options_menu="@menu/fab_menu"
+        custom:src="@drawable/ic_add_black_24dp" />
 
-</LinearLayout>
+</RelativeLayout>
