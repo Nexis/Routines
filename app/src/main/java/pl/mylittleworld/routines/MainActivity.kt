@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.support.v4.app.FragmentActivity
 import android.view.GestureDetector
 import android.view.MotionEvent
+import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.ListView
 import butterknife.BindView
@@ -15,6 +16,13 @@ import pl.mylittleworld.routines.database.ThingToDo
 import pl.mylittleworld.rutines.R
 
 class MainActivity : FragmentActivity(), Control {
+    override fun refreshView() {
+        val adapter=listView.adapter
+        if(adapter is ArrayAdapter<*>){
+            adapter.notifyDataSetChanged()
+        }
+    }
+
     override fun userSwipedRightAtTask(thingToDo: ThingToDo) {
         if(visibleListStatus==Status.TO_DO){
              cache?.assignTaskAsDone(thingToDo)
@@ -22,6 +30,7 @@ class MainActivity : FragmentActivity(), Control {
         else{
             cache?.postponedToToDo(thingToDo)
         }
+        refreshView()
     }
 
     override fun userSwipedLeftAtTask(thingToDo: ThingToDo) {
@@ -31,6 +40,7 @@ class MainActivity : FragmentActivity(), Control {
         else{
             cache?.DoneToToDo(thingToDo)
         }
+        refreshView()
     }
 
     lateinit var postponedListAdapter: MyListAdapter
