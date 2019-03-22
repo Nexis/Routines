@@ -5,4 +5,7 @@
     <string name="to_do">TO_DO</string>
     <string name="add_to_do_for_today">Add \'to_do\' for today</string>
     <string name="add_routine">Add routine</string>
+    <string name="days_in_week">Days in week</string>
+    <string name="times_in_week">Times in week</string>
+    <string name="monday">MONDAY</string>
 </resources>

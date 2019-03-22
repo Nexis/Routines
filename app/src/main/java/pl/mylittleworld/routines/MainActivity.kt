@@ -49,7 +49,7 @@ class MainActivity : FragmentActivity(), Control {
 
 
         //Set main fab clicklistener.
-        fabWithOptions.setMainFabOnClickListener { v ->
+        fabWithOptions.setMainFabOnClickListener { _ ->
             Log.d("fab", "Main fab clicked!")
         }
         //Set mini fabs clicklisteners.
